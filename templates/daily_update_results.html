@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Update Results - AI WeatherWise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌤️ AI WeatherWise</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">🏠 Home</a>
+            <a href="{{ url_for('weather') }}">🌤️ Weather</a>
+            <a href="{{ url_for('history') }}">📜 History</a>
+            <a href="{{ url_for('about') }}">ℹ️ About</a>
+            {% if user %}
+            <a href="{{ url_for('logout') }}">🚪 Logout ({{ user.name }})</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">🔑 Login</a>
+            <a href="{{ url_for('signup') }}">📝 Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>📤 Daily WhatsApp Update - Results</h2>
+        <p>This is the same job that runs automatically every day. Triggered right now for demo purposes.</p>
+
+        {% if results %}
+        <div class="results-box">
+            {% for r in results %}
+            <div class="result-item {{ 'result-sent' if r.status == 'sent' else 'result-failed' }}">
+                <strong>{{ r.user }}</strong> — {{ 'Sent ✅' if r.status == 'sent' else ('Skipped ⏭️' if r.status == 'skipped' else 'Failed ❌') }}
+                <p class="result-info">{{ r.info }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-history">No opted-in users with a preferred city yet. Sign up and tick the WhatsApp checkbox to see this work.</p>
+        {% endif %}
+
+        <a href="{{ url_for('weather') }}" class="btn" style="margin-top:15px;display:inline-block;">Back to Dashboard</a>
+    </div>
+</body>
+</html>

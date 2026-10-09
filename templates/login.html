@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login - AI WeatherWise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌤️ AI WeatherWise</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">🏠 Home</a>
+            <a href="{{ url_for('weather') }}">🌤️ Weather</a>
+            <a href="{{ url_for('history') }}">📜 History</a>
+            <a href="{{ url_for('about') }}">ℹ️ About</a>
+            {% if user %}
+            <a href="{{ url_for('logout') }}">🚪 Logout ({{ user.name }})</a>
+            {% else %}
+            <a href="{{ url_for('signup') }}">📝 Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Log In</h2>
+
+        {% if error %}
+        <div class="error-box">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('login') }}" class="notif-form">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@example.com" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Your password" required>
+
+            <button type="submit" class="btn">Log In</button>
+        </form>
+
+        <p style="margin-top:15px;">No account yet? <a href="{{ url_for('signup') }}">Sign up here</a></p>
+    </div>
+</body>
+</html>

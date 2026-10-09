@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Dashboard - AI WeatherWise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌤️ AI WeatherWise</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">🏠 Home</a>
+            <a href="{{ url_for('weather') }}">🌤️ Weather</a>
+            <a href="{{ url_for('history') }}">📜 History</a>
+            <a href="{{ url_for('about') }}">ℹ️ About</a>
+            {% if user %}
+            <a href="{{ url_for('logout') }}">🚪 Logout ({{ user.name }})</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">🔑 Login</a>
+            <a href="{{ url_for('signup') }}">📝 Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Weather Dashboard</h2>
+
+        <form method="POST" action="{{ url_for('weather') }}" class="search-form" id="weatherForm">
+            <input type="text" name="city" id="cityInput" placeholder="Enter city name (e.g. Chennai)" autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if error %}
+        <div class="error-box">⚠️ {{ error }}</div>
+        {% endif %}
+
+        {% if weather %}
+        <div class="weather-card">
+            <h3>{{ weather.city }}</h3>
+            <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="weather icon">
+
+            <div class="info-grid">
+                <div class="info-box"><span class="label">Temperature</span><span class="value">{{ weather.temperature }}°C</span></div>
+                <div class="info-box"><span class="label">Feels Like</span><span class="value">{{ weather.feels_like }}°C</span></div>
+                <div class="info-box"><span class="label">Condition</span><span class="value">{{ weather.condition }}</span></div>
+                <div class="info-box"><span class="label">Humidity</span><span class="value">{{ weather.humidity }}%</span></div>
+                <div class="info-box"><span class="label">Wind Speed</span><span class="value">{{ weather.wind_speed }} m/s</span></div>
+                <div class="info-box"><span class="label">Pressure</span><span class="value">{{ weather.pressure }} hPa</span></div>
+                <div class="info-box"><span class="label">Visibility</span><span class="value">{{ weather.visibility }} m</span></div>
+                <div class="info-box"><span class="label">🌅 Sunrise</span><span class="value">{{ weather.sunrise }}</span></div>
+                <div class="info-box"><span class="label">🌇 Sunset</span><span class="value">{{ weather.sunset }}</span></div>
+            </div>
+
+            <form method="POST" action="{{ url_for('weather') }}" class="refresh-form">
+                <input type="hidden" name="city" value="{{ weather.city }}">
+                <button type="submit" class="btn-refresh">🔄 Refresh Weather</button>
+            </form>
+
+            {% if user and user.whatsapp_opt_in %}
+            <p class="whatsapp-note">📲 Auto-sent to your WhatsApp ({{ user.whatsapp_number }}) with every search.</p>
+            <p class="whatsapp-note">Daily automatic update is scheduled for your preferred city ({{ user.preferred_city or 'not set' }}).</p>
+            <form method="POST" action="{{ url_for('send_daily_updates_now') }}">
+                <button type="submit" class="btn-refresh">📤 Send Daily Update Now (Demo)</button>
+            </form>
+            {% elif user %}
+            <form method="POST" action="{{ url_for('send_whatsapp') }}" class="refresh-form">
+                <input type="hidden" name="city" value="{{ weather.city }}">
+                <button type="submit" class="btn-whatsapp">📲 Send WhatsApp Update</button>
+            </form>
+            <p class="whatsapp-note">Will be sent to your registered number: {{ user.whatsapp_number }}</p>
+            {% else %}
+            <p class="whatsapp-note">
+                <a href="{{ url_for('login') }}">Log in</a> or <a href="{{ url_for('signup') }}">sign up</a>
+                and agree to WhatsApp updates to get every search automatically on WhatsApp.
+            </p>
+            {% endif %}
+
+            {% if wa_success %}
+            <div class="success-box">{{ wa_success }}</div>
+            {% endif %}
+            {% if wa_error %}
+            <div class="error-box">{% if wa_error.startswith('⚠️') %}{{ wa_error }}{% else %}⚠️ {{ wa_error }}{% endif %}</div>
+            {% endif %}
+        </div>
+
+        <div class="rain-box">
+            <h4>🌧️ Rain Information</h4>
+            {% if weather.rain_mm is not none %}
+            <p>Rain amount (last hour): <strong>{{ weather.rain_mm }} mm</strong></p>
+            <p>Condition: <strong>{{ weather.condition }}</strong></p>
+            {% else %}
+            <p>No rain currently reported.</p>
+            {% endif %}
+        </div>
+
+        {% if hourly_rain %}
+        <div class="rain-box">
+            <h4>🌧️ Rain Forecast (Today)</h4>
+            <div class="hourly-rain-grid">
+                {% for part, pop in hourly_rain.items() %}
+                <div class="hourly-rain-item">
+                    <span class="hourly-part">{{ part }}</span>
+                    <span class="hourly-pop">{{ pop }}%</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="analysis-box">
+            <h4>Weather Analysis & Suggestion</h4>
+            <p>{{ analysis }}</p>
+        </div>
+
+        <div class="rain-analysis-box">
+            <h4>🌧️ Rain Analysis</h4>
+            <p>{{ rain_analysis }}</p>
+        </div>
+
+        {% if forecast %}
+        <div class="forecast-section">
+            <h4>7-Day Forecast</h4>
+            <div class="forecast-grid">
+                {% for day in forecast %}
+                <div class="forecast-card">
+                    <span class="forecast-label">{{ day.label }}</span>
+                    <span class="forecast-date">{{ day.date }}</span>
+                    <img src="https://openweathermap.org/img/wn/{{ day.icon }}.png" alt="icon">
+                    <span class="forecast-temp">{{ day.max_temp }}° / {{ day.min_temp }}°</span>
+                    <span class="forecast-condition">{{ day.condition }}</span>
+                    <span class="forecast-extra">💧 {{ day.humidity }}% &nbsp; 🌧 {{ day.rain_chance }}%</span>
+                    {% if day.rain_amount is not none %}
+                    <span class="forecast-extra">Rain: {{ day.rain_amount }} mm</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <p class="no-history">7-day forecast is temporarily unavailable, but your current weather above is up to date.</p>
+        {% endif %}
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

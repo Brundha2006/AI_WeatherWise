@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>History - AI WeatherWise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌤️ AI WeatherWise</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">🏠 Home</a>
+            <a href="{{ url_for('weather') }}">🌤️ Weather</a>
+            <a href="{{ url_for('history') }}">📜 History</a>
+            <a href="{{ url_for('about') }}">ℹ️ About</a>
+            {% if user %}
+            <a href="{{ url_for('logout') }}">🚪 Logout ({{ user.name }})</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">🔑 Login</a>
+            <a href="{{ url_for('signup') }}">📝 Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Search History</h2>
+
+        {% if records %}
+        <form method="POST" action="{{ url_for('clear_history_route') }}">
+            <button type="submit" class="btn-clear">Clear History</button>
+        </form>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>City</th><th>Temperature</th><th>Condition</th>
+                    <th>Humidity</th><th>Wind Speed</th><th>Date & Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record[0] }}</td>
+                    <td>{{ record[1] }}°C</td>
+                    <td>{{ record[2] }}</td>
+                    <td>{{ record[3] }}%</td>
+                    <td>{{ record[4] }} m/s</td>
+                    <td>{{ record[5] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-history">No search history yet. Go to Weather Dashboard and search a city!</p>
+        {% endif %}
+    </div>
+</body>
+</html>

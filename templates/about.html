@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About - AI WeatherWise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌤️ AI WeatherWise</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">🏠 Home</a>
+            <a href="{{ url_for('weather') }}">🌤️ Weather</a>
+            <a href="{{ url_for('history') }}">📜 History</a>
+            <a href="{{ url_for('about') }}">ℹ️ About</a>
+            {% if user %}
+            <a href="{{ url_for('logout') }}">🚪 Logout ({{ user.name }})</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">🔑 Login</a>
+            <a href="{{ url_for('signup') }}">📝 Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container about-container">
+        <h2>About This Project</h2>
+        <p><strong>Project Title:</strong> AI WeatherWise API</p>
+        <p>
+            AI WeatherWise API is a simple Flask-based web application built as a final year
+            B.Sc Computer Science project. It fetches real-time weather data for any city using
+            the OpenWeatherMap API and displays it in a clean, easy-to-understand dashboard.
+        </p>
+        <p>
+            The project also analyzes the fetched weather data to give simple, safe suggestions
+            about outdoor activities, and keeps a history of all past searches using SQLite.
+        </p>
+        <p><strong>Technology used:</strong> Python, Flask, HTML, CSS, JavaScript, SQLite, OpenWeatherMap API</p>
+    </div>
+</body>
+</html>

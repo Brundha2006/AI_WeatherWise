@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign Up - AI WeatherWise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🌤️ AI WeatherWise</div>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">🏠 Home</a>
+            <a href="{{ url_for('weather') }}">🌤️ Weather</a>
+            <a href="{{ url_for('history') }}">📜 History</a>
+            <a href="{{ url_for('about') }}">ℹ️ About</a>
+            {% if user %}
+            <a href="{{ url_for('logout') }}">🚪 Logout ({{ user.name }})</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">🔑 Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Create Your Account</h2>
+        <p>Sign up once, then every "Send WhatsApp Update" goes straight to your own WhatsApp number.</p>
+
+        {% if error %}
+        <div class="error-box">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('signup') }}" class="notif-form">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@example.com" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="At least 6 characters" required>
+
+            <label>WhatsApp Number</label>
+            <input type="text" name="whatsapp_number" placeholder="Country code + number, e.g. 919876543210" required>
+
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="whatsapp_opt_in"> ☑ I agree to receive weather updates on WhatsApp</label>
+            </div>
+
+            <label>Preferred City (for your daily WhatsApp update)</label>
+            <input type="text" name="preferred_city" placeholder="e.g. Musiri">
+            <p class="whatsapp-note">Only needed if you tick the WhatsApp updates checkbox above.</p>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+
+        <p style="margin-top:15px;">Already have an account? <a href="{{ url_for('login') }}">Log in here</a></p>
+    </div>
+</body>
+</html>
