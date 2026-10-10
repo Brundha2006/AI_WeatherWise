@@ -1,0 +1,631 @@
+```css
+/* AI WeatherWise - Blue & White Professional Design */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+:root {
+    --primary: #1769e0;
+    --primary-dark: #104bb0;
+    --light-blue: #eaf3ff;
+    --white: #ffffff;
+    --text: #243247;
+    --muted: #718096;
+    --border: #dce6f2;
+    --success: #16834a;
+}
+
+body {
+    min-height: 100vh;
+    background: #f4f8ff;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Navigation */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    padding: 17px 5%;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 18px rgba(25, 75, 140, 0.07);
+}
+
+.logo {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #42516a;
+    font-size: 0.93rem;
+    font-weight: 600;
+    padding: 9px 12px;
+    border-radius: 9px;
+    transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+    background: var(--light-blue);
+}
+
+/* Home page */
+
+.hero {
+    text-align: center;
+    padding: 85px 20px;
+    color: var(--white);
+    background: linear-gradient(135deg, #1769e0, #53a0fd);
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin-bottom: 14px;
+    line-height: 1.2;
+}
+
+.hero-desc {
+    max-width: 650px;
+    margin: 18px auto;
+    font-size: 1.08rem;
+    color: #f2f7ff;
+}
+
+/* Main content container */
+
+.container {
+    width: calc(100% - 32px);
+    max-width: 800px;
+    margin: 38px auto;
+    padding: 32px;
+    background: var(--white);
+    border: 1px solid #e6edf7;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(35, 80, 145, 0.08);
+}
+
+.container h2 {
+    margin-bottom: 12px;
+    color: #174b9b;
+    font-size: 1.8rem;
+}
+
+.container > p {
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+/* Forms */
+
+.notif-form {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 22px;
+    margin-bottom: 20px;
+}
+
+.notif-form label {
+    margin-top: 9px;
+    color: #34445c;
+    font-size: 0.94rem;
+    font-weight: 600;
+}
+
+.notif-form input[type="text"],
+.notif-form input[type="email"],
+.notif-form input[type="password"],
+.notif-form input[type="tel"],
+.notif-form input[type="number"],
+.notif-form select,
+.notif-form textarea {
+    width: 100%;
+    padding: 13px 14px;
+    color: var(--text);
+    background: #fbfdff;
+    border: 1px solid #d5e0ef;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.notif-form input:focus,
+.notif-form select:focus,
+.notif-form textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(23, 105, 224, 0.12);
+    background: var(--white);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 13px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.93rem;
+    font-weight: 500;
+}
+
+.checkbox-group input {
+    margin-top: 5px;
+    accent-color: var(--primary);
+}
+
+.whatsapp-note {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.whatsapp-note a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Buttons */
+
+.btn,
+.btn-clear,
+.search-form button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+}
+
+.btn:hover,
+.btn-clear:hover,
+.search-form button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.notif-form .btn {
+    width: 100%;
+    margin-top: 17px;
+    align-self: stretch;
+}
+
+.btn-refresh {
+    padding: 10px 22px;
+    background: #16834a;
+    color: var(--white);
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-refresh:hover {
+    background: #10683a;
+}
+
+.btn-whatsapp {
+    padding: 11px 22px;
+    background: #16834a;
+    color: var(--white);
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.btn-whatsapp:hover {
+    background: #10683a;
+}
+
+.refresh-form,
+.test-form {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+/* Search form */
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-form input:focus {
+    border-color: var(--primary);
+}
+
+/* Error and success messages */
+
+.error-box {
+    padding: 13px 15px;
+    color: #b42318;
+    background: #fff0ef;
+    border: 1px solid #ffd2ce;
+    border-radius: 10px;
+    margin: 18px 0;
+}
+
+.success-box {
+    padding: 13px 15px;
+    color: #176b3a;
+    background: #eaf9ef;
+    border: 1px solid #c8efd4;
+    border-radius: 10px;
+    margin: 18px 0;
+}
+
+/* Weather details */
+
+.weather-card {
+    text-align: center;
+    background: linear-gradient(135deg, #edf5ff, #ffffff);
+    padding: 25px;
+    border: 1px solid #dce9fc;
+    border-radius: 16px;
+    margin-bottom: 22px;
+}
+
+.weather-card h3 {
+    font-size: 1.7rem;
+    color: var(--primary);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.info-box {
+    background: #f7faff;
+    padding: 17px 14px;
+    border: 1px solid #e2ebf8;
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(35, 80, 145, 0.08);
+}
+
+.info-box .label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.info-box .value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #174b9b;
+    overflow-wrap: anywhere;
+}
+
+.analysis-box {
+    background: #eaf9ef;
+    padding: 17px;
+    border-radius: 12px;
+    border-left: 4px solid #22a05a;
+    margin-top: 18px;
+}
+
+/* Forecast */
+
+.forecast-section {
+    margin-top: 25px;
+}
+
+.forecast-section h4 {
+    color: #174b9b;
+    margin-bottom: 14px;
+}
+
+.forecast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.forecast-card {
+    background: #f1f6ff;
+    padding: 15px 10px;
+    border: 1px solid #e0eafa;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.forecast-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.forecast-date {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+.forecast-temp {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+.forecast-condition {
+    display: block;
+    font-size: 0.78rem;
+    color: #5b6b82;
+    margin-top: 3px;
+}
+
+.forecast-extra {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 6px;
+}
+
+/* Rain information */
+
+.rain-box {
+    background: #edf6ff;
+    padding: 17px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary);
+    margin-bottom: 20px;
+}
+
+.rain-box h4 {
+    color: #174b9b;
+    margin-bottom: 8px;
+}
+
+.hourly-rain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.hourly-rain-item {
+    background: var(--white);
+    padding: 12px 8px;
+    border: 1px solid #e1eafa;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.hourly-part {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.hourly-pop {
+    display: block;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.rain-analysis-box {
+    background: #fff8e8;
+    padding: 17px;
+    border-radius: 12px;
+    border-left: 4px solid #e8a126;
+    margin-bottom: 20px;
+}
+
+.rain-analysis-box h4 {
+    color: #9b680d;
+    margin-bottom: 8px;
+}
+
+/* History table */
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    background: var(--white);
+}
+
+.history-table th,
+.history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e6edf7;
+    text-align: left;
+}
+
+.history-table th {
+    background: #edf5ff;
+    color: #174b9b;
+}
+
+.no-history {
+    color: var(--muted);
+    margin-top: 18px;
+}
+
+/* WhatsApp forms and results */
+
+.whatsapp-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.whatsapp-form input[type="text"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-size: 0.95rem;
+}
+
+.results-box {
+    margin-top: 18px;
+}
+
+.result-item {
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.result-sent {
+    background: #eaf9ef;
+    border-left: 4px solid #22a05a;
+}
+
+.result-failed {
+    background: #fff0ef;
+    border-left: 4px solid #d93636;
+}
+
+.result-info {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+/* About page */
+
+.about-container p {
+    margin-bottom: 16px;
+    line-height: 1.8;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 22px 15px;
+    color: #64748b;
+}
+
+/* Responsive mobile layout */
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .nav-links a {
+        margin: 0;
+        padding: 8px;
+        font-size: 0.85rem;
+    }
+
+    .container {
+        margin: 22px auto;
+        padding: 22px 18px;
+        border-radius: 14px;
+    }
+
+    .container h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero {
+        padding: 55px 18px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form button {
+        width: 100%;
+    }
+
+    .info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .history-table {
+        font-size: 0.82rem;
+    }
+
+    .history-table th,
+    .history-table td {
+        padding: 8px 5px;
+    }
+
+    .whatsapp-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .whatsapp-form input[type="text"] {
+        min-width: 0;
+        width: 100%;
+    }
+}
+```
